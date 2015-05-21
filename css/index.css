@@ -1,0 +1,42 @@
+body {
+	font-size: small;
+	
+}
+
+#header {
+	height: 60px;
+}
+
+#header div {
+	
+	display: inline-block;
+	vertical-align: super;
+	font-weight: bold;
+	font-size: 2em;
+	color: #1496d3;
+	
+}
+
+#body div {
+	
+	display: inline-block;
+	
+}
+
+#bodyleft {
+	width: 200px;
+	
+}
+
+#bodyright {
+	vertical-align: top;
+	
+}
+
+#footer {
+	text-align: center;
+	background-color: #1496d3;
+	color: white;
+	padding: 10px 0 20px
+	
+}
