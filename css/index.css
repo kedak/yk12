@@ -33,6 +33,11 @@ body {
 	
 }
 
+#bodyright div {
+	display: block;
+	
+}
+
 #footer {
 	text-align: center;
 	background-color: #1496d3;

@@ -1,42 +1,75 @@
 package de.kedak.ykbird;
 
-import java.applet.Applet;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.JApplet;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 
-public class MainApplet extends Applet {
+public class MainApplet extends JApplet implements ActionListener {
 
-	
-	public void paint (Graphics g)
-	   {
-	      //g.drawString ("Hello World", 25, 50);
-	      g.draw
-	      SwingUtilities.invokeLater(new Runnable() {
-	            public void run() {
-	                //Turn off metal's use of bold fonts
-	                UIManager.put("swing.boldMetal", Boolean.FALSE);
-	                createAndShowGUI();
-	            }
-	        });
-	      
-	      
-	   }
-	
-	
-	 private static void createAndShowGUI() {
-	        //Create and set up the window.
-	        JFrame frame = new JFrame("FileChooserDemo2");
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private static final long serialVersionUID = 1L;
+	static private String newline = "\n";
+    private JTextArea log;
+    private JFileChooser fc;
+	    
+    
+    
+	@Override
+	public void init() {
+		
+		log = new JTextArea(5,20);
+        log.setMargin(new Insets(5,5,5,5));
+        log.setEditable(false);
+        JScrollPane logScrollPane = new JScrollPane(log);
 
-	        //Add content to the window.
-	        frame.add(new FileChooserDemo2());
+        JButton sendButton = new JButton("Choose a file...");
+        sendButton.addActionListener(this);
 
-	        //Display the window.
-	        frame.pack();
-	        frame.setVisible(true);
-	    }
+        add(sendButton, BorderLayout.PAGE_START);
+        add(logScrollPane, BorderLayout.CENTER);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//Set up the file chooser.
+        if (fc == null) {
+            fc = new JFileChooser();
+
+	    //Add a custom file filter and disable the default
+	    //(Accept All) file filter.
+            fc.addChoosableFileFilter(new ImageFilter());
+            fc.setAcceptAllFileFilterUsed(false);
+
+	    //Add custom icons for file types.
+            fc.setFileView(new ImageFileView());
+
+	    //Add the preview pane.
+            fc.setAccessory(new ImagePreview(fc));
+        }
+
+        //Show it.
+        int returnVal = fc.showDialog(this,
+                                      "Process");
+
+        //Process the results.
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            log.append("Processing file: " + file.getName()
+                       + "..." + newline);
+        } else {
+            log.append("Process is cancelled by user." + newline);
+        }
+        log.setCaretPosition(log.getDocument().getLength());
+
+        //Reset the file chooser for the next time it's shown.
+        fc.setSelectedFile(null);
+        log.append("======================================" + newline+ newline);
+	}
 }
