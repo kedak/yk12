@@ -42,16 +42,16 @@ public class MainApplet extends JApplet implements ActionListener {
         if (fc == null) {
             fc = new JFileChooser();
 
-	    //Add a custom file filter and disable the default
-	    //(Accept All) file filter.
-            fc.addChoosableFileFilter(new ImageFilter());
-            fc.setAcceptAllFileFilterUsed(false);
+		    //Add a custom file filter and disable the default
+		    //(Accept All) file filter.
+	        //fc.addChoosableFileFilter(new ImageFilter());
+            fc.setAcceptAllFileFilterUsed(true);
 
-	    //Add custom icons for file types.
-            fc.setFileView(new ImageFileView());
+            //Add custom icons for file types.
+            //fc.setFileView(new ImageFileView());
 
-	    //Add the preview pane.
-            fc.setAccessory(new ImagePreview(fc));
+            //Add the preview pane.
+            //fc.setAccessory(new ImagePreview(fc));
         }
 
         //Show it.
@@ -61,7 +61,7 @@ public class MainApplet extends JApplet implements ActionListener {
         //Process the results.
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
-            log.append("Processing file: " + file.getName()
+            log.append("Processing file: " + file.getAbsolutePath()
                        + "..." + newline);
         } else {
             log.append("Process is cancelled by user." + newline);
