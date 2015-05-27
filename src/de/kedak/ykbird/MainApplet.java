@@ -41,11 +41,11 @@ public class MainApplet extends JApplet implements ActionListener {
 		//Set up the file chooser.
         if (fc == null) {
             fc = new JFileChooser();
-
+            fc.setCurrentDirectory(new File("./"));
 		    //Add a custom file filter and disable the default
 		    //(Accept All) file filter.
 	        //fc.addChoosableFileFilter(new ImageFilter());
-            fc.setAcceptAllFileFilterUsed(true);
+            //fc.setAcceptAllFileFilterUsed(true);
 
             //Add custom icons for file types.
             //fc.setFileView(new ImageFileView());
